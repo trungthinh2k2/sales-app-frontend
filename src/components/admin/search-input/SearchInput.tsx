@@ -1,5 +1,5 @@
 import {Box, Input} from "@mui/material";
-import IconButtonGradient from "../common/ButtonGrandient";
+import IconButtonGradient from "../../common/ButtonGrandient";
 import SearchIcon from "@mui/icons-material/Search";
 
 type Props = {

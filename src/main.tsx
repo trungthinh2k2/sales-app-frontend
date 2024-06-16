@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     element: <AdminLayout><UpdateProduct /></AdminLayout>,
   },
   {
-    path: "/admin/products/category",
+    path: "/admin/products/categories",
     element: <AdminLayout><Category /></AdminLayout>,
   }
 ]);

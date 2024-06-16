@@ -144,7 +144,7 @@ const NavBar = () => {
                 {
                     title: 'Loại sản phẩm',
                     icon: <AddIcon fontSize={"small"}/>,
-                    href: '/admin/products/category'
+                    href: '/admin/products/categories'
                 },
                 {
                     title: 'Nhà cung cấp',

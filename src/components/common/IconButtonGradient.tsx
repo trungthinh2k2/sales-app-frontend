@@ -1,5 +1,5 @@
 import {styled, IconButton } from "@mui/material";
-import { primaryGradient } from "../../../theme";
+import { primaryGradient } from "../../theme";
 
 const IconButtonGradient = styled(IconButton)( {
     ":hover": {

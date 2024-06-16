@@ -1,5 +1,5 @@
 import { Button, styled } from "@mui/material";
-import { primaryGradient } from "../../../theme";
+import { primaryGradient } from "../../theme";
 
 const ButtonGrandient = styled(Button)({
     display: "flex",
