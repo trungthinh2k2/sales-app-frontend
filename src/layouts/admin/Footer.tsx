@@ -4,7 +4,7 @@ import ButtonGrandient from "../../components/common/ButtonGrandient";
 const Footer = () => {
     const { mode, setMode } = useColorScheme();
     return (
-        <Box sx={{ backgroundColor: "primary.dark" }}>
+        <Box sx={{ backgroundColor: "primary.dark", bottom:0 }}>
             Footer
 
             <ButtonGrandient

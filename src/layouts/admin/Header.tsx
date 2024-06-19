@@ -19,31 +19,32 @@ const Header = () => {
         <Navbar ></Navbar>
     );
     return (
-        <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-            <Box sx={{ display: "flex", width: "50%", alignItems: "center" }}>
+        <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", pl: 2, pr:2  }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
                 {isMobile
                     ? <></>
                     : <Box>
-                        <SearchInput placeHolder="Nhận nội dung cần tìm ..."/>
+                        <SearchInput placeHolder="Nhập nội dung cần tìm ..."/>
                         
                     </Box>
                 }
 
             </Box>
             {/* <Box sx={{ width: "20%" }}></Box> */}
-            <Box sx={{ display: "flex", width: isMobile ? "40%" : "20%", justifyContent: "space-evenly", alignItems: "center" }}>
-                <Avatar sx={{ bgcolor: deepOrange[500] }}>T</Avatar>
+            <Box sx={{ display: "flex", width: isMobile ? "40%" : "20%", alignItems: "center", justifyContent: 'space-evenly' }}>
+                
 
-                <IconButtonGradient type="button" sx={{ p: '10px' }} aria-label="mail">
+                {/* <IconButtonGradient type="button" sx={{ p: '10px' }} aria-label="mail">
                     <Badge badgeContent={4} color="primary">
                         <MailIcon fontSize="small" />
                     </Badge>
-                </IconButtonGradient>
+                </IconButtonGradient> */}
                 <IconButtonGradient type="button" sx={{ p: '10px' }} aria-label="notify">
                     <Badge badgeContent={4} color="primary">
                         <NotificationsIcon fontSize="small" />
                     </Badge>
                 </IconButtonGradient>
+                <Avatar sx={{ bgcolor: deepOrange[500] }}>T</Avatar>
                 {isMobile ?
                     <Box>
                         <IconButtonGradient sx={{ p: '10px' }} aria-label="menu" onClick={toggleDrawer(true)}>

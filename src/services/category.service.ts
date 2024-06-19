@@ -47,9 +47,10 @@ export const deleteCategory = async (id: number = -1): Promise<ResponseSuccess<s
 
 export const updateCategory = async (id: number = -1, categoryDto: CategoryDto) : Promise<ResponseSuccess<CategoryModel>> => {
     try {
+        console.log("Category: ", categoryDto);
         const response = await requestConfig(
             `categories/` + id,
-            Method.PATCH,
+            Method.PUT,
             categoryDto,
             ContentType.JSON
         );

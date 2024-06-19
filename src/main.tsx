@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
 import './index.scss'
 import {
   Experimental_CssVarsProvider as CssVarsProvider,
@@ -17,6 +16,7 @@ import Products from './pages/admin/products/Products.tsx';
 import CreateProduct from './pages/admin/products/CreateProduct.tsx';
 import UpdateProduct from './pages/admin/products/UpdateProduct.tsx';
 import Category from './pages/admin/categories/Category.tsx';
+import Provider from './pages/admin/providers/Provider.tsx';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/admin/products/categories",
     element: <AdminLayout><Category /></AdminLayout>,
+  },
+  {
+    path: "/admin/products/providers",
+    element: <AdminLayout><Provider /></AdminLayout>,
   }
 ]);
 

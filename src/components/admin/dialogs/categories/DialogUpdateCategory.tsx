@@ -3,7 +3,7 @@ import { CategoryModel } from "../../../../models/category.model";
 import { ResponseSuccess } from "../../../../dtos/responses/response.susscess";
 import { updateCategory as updateCategoryAPI } from "../../../../services/category.service";
 import { useState } from "react";
-import { Status } from "../../../../enum/status.enum";
+import { Status } from "../../../../models/enum/status.enum";
 
 type Props = {
     open: boolean,
@@ -30,11 +30,16 @@ const DialogUpdateCategory = ({ open, handleClose, updateCategory, category, sho
                 const response: ResponseSuccess<CategoryModel> = await updateCategoryAPI(
                     category?.id, {categoryName, status: newStatus});
                 updateCategory(response.data);
-                showwAlert('success', 'Cập nhật loại sản phẩm thành công');
-                handleClose();
+                console.log("Response: ", response);
+                if(response.status === 200) {
+                    showwAlert('success', 'Cập nhật loại sản phẩm thành công');
+                    handleClose();
+                }else {
+                    showwAlert('error', response.message);
+                }
+                
             } catch (error) {
-                showwAlert('error', 'Cập nhật loại sản phẩm thất bại');
-                handleClose();
+                showwAlert('error', (error as Error).message);
                 console.log(error);
             }
         }

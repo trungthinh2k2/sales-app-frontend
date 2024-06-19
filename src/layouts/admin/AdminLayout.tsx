@@ -11,17 +11,21 @@ type AdminLayoutProps = {
 const AdminLayout = ({ children }: AdminLayoutProps) => {
     const isMobile = useMediaQuery('(max-width:600px)');
     return (
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Box>
-                <Header></Header>
-            </Box>
+        <Box sx={{ display: "flex", flexDirection: "column", }}>
+            
             <Box sx={{ display: "flex" }}>
                 {isMobile ? <></> : <Navbar></Navbar>}
-                <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, borderLeft: '1px solid #e4e4e4', }}>
+                <Box sx={{
+                    display: 'flex', flexDirection: 'column',
+
+                    flex: 1, borderLeft: '1px solid #e4e4e4'
+                }}>
+                    <Header></Header>
                     <Box sx={{ flex: 1 }}>{children}</Box>
-                    <Box sx={{ height: '200px' }}><Footer></Footer></Box>
+                    <Footer></Footer>
                 </Box>
             </Box>
+            
         </Box>
     )
 }

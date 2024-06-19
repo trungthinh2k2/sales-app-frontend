@@ -149,7 +149,7 @@ const NavBar = () => {
                 {
                     title: 'Nhà cung cấp',
                     icon: <AddIcon fontSize={"small"}/>,
-                    href: '/admin/products/provider'
+                    href: '/admin/products/providers'
                 }
             ]
         },

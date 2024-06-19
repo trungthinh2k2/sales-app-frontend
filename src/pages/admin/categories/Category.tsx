@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Paper, Snackbar, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Alert, Box, Button, Paper, Snackbar, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useMediaQuery } from "@mui/material";
 import ButtonGrandient from "../../../components/common/ButtonGrandient";
 import { useEffect, useState } from "react";
 import { ResponseSuccess } from "../../../dtos/responses/response.susscess";
@@ -19,6 +19,7 @@ const Category = () => {
         status: '',
         message: ''
     });
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     const handleClose = () => {
         setOpen(false);
@@ -73,49 +74,49 @@ const Category = () => {
             <Typography variant="h5">Loại sản phẩm</Typography>
             <Box>
                 <ButtonGrandient variant="contained" onClick={() => { setOpen(true) }}>Thêm loại sản phẩm</ButtonGrandient>
-                {open && <DialogCreateCategory addCategory={addCategory} open={open} handleClose={handleClose} showAlert={showAlert}/>}
-                {openDelete && <DialogDeleteCategory deleteCategory={deleteCategory} open={openDelete} handleClose={handleCloseDelete} category={category} showAlert={showAlert}/>}
-                {openUpdate && <DialogUpdateCategory updateCategory={updateCategory}  open={openUpdate} handleClose={handleCloseUpdate} category={category} showwAlert={showAlert}/>}
+                {open && <DialogCreateCategory addCategory={addCategory} open={open} handleClose={handleClose} showAlert={showAlert} />}
+                {openDelete && <DialogDeleteCategory deleteCategory={deleteCategory} open={openDelete} handleClose={handleCloseDelete} category={category} showAlert={showAlert} />}
+                {openUpdate && <DialogUpdateCategory updateCategory={updateCategory} open={openUpdate} handleClose={handleCloseUpdate} category={category} showwAlert={showAlert} />}
                 {openAlert.show && <Snackbar
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                open={openAlert.show} autoHideDuration={3000} onClose={() => setOpenAlert({
-                show: false,
-                status: '',
-                message: ''
-            })}>
-                <Alert
-                    severity={openAlert.status === 'success' ? 'success' : 'error'}
-                    variant="filled"
-                    sx={{ width: '100%' }}
-                >
-                    {openAlert.message}
-                </Alert>
-            </Snackbar>}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    open={openAlert.show} autoHideDuration={3000} onClose={() => setOpenAlert({
+                        show: false,
+                        status: '',
+                        message: ''
+                    })}>
+                    <Alert
+                        severity={openAlert.status === 'success' ? 'success' : 'error'}
+                        variant="filled"
+                        sx={{ width: '100%' }}
+                    >
+                        {openAlert.message}
+                    </Alert>
+                </Snackbar>}
                 <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="a dense table">
+                    <Table  size={isMobile ? 'small' : 'medium'} aria-label="a dense table">
                         <TableHead>
                             <TableRow>
                                 <TableCell align={'center'}>Id</TableCell>
                                 <TableCell align={'center'}>Tên loại sản phẩm</TableCell>
                                 <TableCell align={'center'}>Trạng thái</TableCell>
-                                 <TableCell align={'center'}>Thao tác</TableCell>
+                                <TableCell align={'center'}>Thao tác</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                        {categories.map((category: CategoryModel) => (
-                            <TableRow key={category.id}>
-                                <TableCell align={'center'}>{category.id}</TableCell>
-                                <TableCell align={'center'}>{category.categoryName}</TableCell>
-                                <TableCell align={'center'}>{category.status}</TableCell>
-                                <TableCell align={'center'}>
-                                    <Button color={'success'}
-                                        onClick={() => {setOpenUpdate(true), setCategory(category)}}
-                                    >Cập nhật</Button>
-                                    <Button onClick={() => {setOpenDelete(true), setCategory(category)}} >Xóa</Button>
-                                </TableCell>
+                            {categories.map((category: CategoryModel) => (
+                                <TableRow key={category.id}>
+                                    <TableCell align={'center'}>{category.id}</TableCell>
+                                    <TableCell align={'center'}>{category.categoryName}</TableCell>
+                                    <TableCell align={'center'}>{category.status}</TableCell>
+                                    <TableCell align={'center'}>
+                                        <Button color={'success'}
+                                            onClick={() => { setOpenUpdate(true), setCategory(category) }}
+                                        >Cập nhật</Button>
+                                        <Button onClick={() => { setOpenDelete(true), setCategory(category) }} >Xóa</Button>
+                                    </TableCell>
 
-                            </TableRow>
-                        ))}
+                                </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
