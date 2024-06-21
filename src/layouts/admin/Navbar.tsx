@@ -1,90 +1,3 @@
-// import { Box, Typography } from "@mui/material";
-// import HomeIcon from '@mui/icons-material/Home';
-// import BarChartIcon from '@mui/icons-material/BarChart';
-// import BackupTableIcon from '@mui/icons-material/BackupTable';
-// import IconButtonGradient from "../../components/admin/common/IconButtonGradient";
-// import { pinkGradient } from "../../theme";
-// import { Link } from "react-router-dom";
-
-// type NavbarProps = {
-//     isOpenNavbar: boolean;
-// }
-
-// const Navbar = () => {
-
-//     const buttonIcon = [
-//         {
-//             icon: <HomeIcon />,
-//             title: 'Dashboard',
-//             href: '/admin/dashboard'
-//         },
-//         {
-//             icon: <BackupTableIcon />,
-//             title: 'Product',
-//             href: '/admin/products'
-//         },
-//         {
-//             icon: <BarChartIcon />,
-//             title: 'Chart',
-//             href: '/admin/chart'
-//         }
-//     ]
-
-
-//     return <Box sx={{
-//         display: "flex",
-//         flexDirection: "column",
-//         alignItems: "center",
-//         height: "100vh",
-//         pt: 1,
-//         width: "200px",
-//         transition: 'width 0.6s'
-//     }}>
-//         <Box sx={{ mb: 2, mt: 1 }}>
-//             Logo
-//         </Box>
-//         <Box sx={{
-//             display: 'flex', flexDirection: 'column', width: '100%'
-//         }}>
-//             {buttonIcon.map((buttonIcon, index) => {
-//                 return (
-//                     <Link to={buttonIcon.href} style={{textDecoration: "none", color: "inherit"}}>
-//                         <Box key={index}>
-//                             <Box sx={{
-//                                 display: "flex",
-//                                 alignItems: "center",
-//                                 width: '100%',
-//                                 p: 1,
-//                                 pl: 2,
-//                                 pr: 2,
-//                                 justifyContent: 'space-between',
-//                                 cursor: "pointer",
-//                                 ':hover': {
-//                                     background: pinkGradient,
-//                                     color: 'white'
-//                                 },
-//                             }}>
-//                                 <Typography>{buttonIcon.title}</Typography>
-//                                 <IconButtonGradient>
-//                                     {buttonIcon.icon}
-//                                 </IconButtonGradient>
-//                             </Box>
-//                         </Box>
-//                     </Link>
-
-//                 )
-//             }
-//             )}
-
-
-//         </Box>
-//     </Box>
-// }
-// export default Navbar;
-
-
-
-
 import {
     Box,
     Collapse,
@@ -107,12 +20,17 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 type Item = {
     title: string,
-    icon: ReactNode,
+    icon?: ReactNode,
     href: string,
     child?: Item[]
 }
 
-const NavBar = () => {
+type NavBarProps = {
+    items: Item[]
+}
+
+
+const NavBar = ({items}: NavBarProps) => {
     const [open, setOpen] = useState<{ [key: string]: boolean }>({});
     const location = useLocation();
 
@@ -120,66 +38,8 @@ const NavBar = () => {
         setOpen(prev => ({...prev, [title]: !prev[title]}));
     };
 
-    const buttonIcon: Item[] = [
-        {
-            title: 'Dashboard',
-            icon: <Home/>,
-            href: '/admin/dashboard'
-        },
-        {
-            title: 'Sản phẩm',
-            icon: <LocalMallIcon/>,
-            href: '/admin/products',
-            child: [
-                {
-                    title: 'Thêm sản phẩm',
-                    icon: <AddIcon fontSize={"small"}/>,
-                    href: '/admin/products/create'
-                },
-                {
-                    title: 'Danh sách sản phẩm',
-                    icon: <AddIcon fontSize={"small"}/>,
-                    href: '/admin/products'
-                },
-                {
-                    title: 'Loại sản phẩm',
-                    icon: <AddIcon fontSize={"small"}/>,
-                    href: '/admin/products/categories'
-                },
-                {
-                    title: 'Nhà cung cấp',
-                    icon: <AddIcon fontSize={"small"}/>,
-                    href: '/admin/products/providers'
-                }
-            ]
-        },
-        {
-            title: 'Khách hàng',
-            icon: <GroupIcon/>,
-            href: '/admin/dashboard/1'
-        },
-        {
-            title: 'Hóa đơn',
-            icon: <BackupTable/>,
-            href: '/admin/dashboard/1'
-        },
-        {
-            title: 'Tin nhắn',
-            icon: <MessageIcon/>,
-            href: '/admin/dashboard/1'
-        },
-        {
-            title: 'Khuyến mãi',
-            icon: <BookmarkIcon/>,
-            href: '/admin/dashboard/1'
-        },
-        {
-            title: 'Thống kê',
-            icon: <Equalizer/>,
-            href: '/admin/dashboard/1'
-        }
-    ];
-
+    const buttonIcon: Item[] = items;
+        
     return (
         <Box sx={{
             display: 'flex', flexDirection: 'column',

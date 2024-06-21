@@ -1,4 +1,5 @@
 import requestConfig, { ContentType, Method } from "../configurations/axios.config";
+import { ProductResponse } from "../dtos/responses/product-response";
 import { ResponseSuccess } from "../dtos/responses/response.susscess";
 import { ProductModel } from "../models/product.model";
 
@@ -10,7 +11,6 @@ export const getProducts = async (): Promise<ResponseSuccess<ProductModel[]>> =>
             [],
             ContentType.JSON
         );
-        console.log("Response: ", response.data);
         
         return response.data;
     } catch (error) {
@@ -33,6 +33,20 @@ export const createProduct = async (productDto: FormData): Promise<ResponseSucce
     }
 }
 
+export const getProductById = async (productId: number = -1): Promise<ResponseSuccess<ProductResponse>> => {
+    try {
+        const response = await requestConfig(
+            'products/' + productId,
+            Method.GET,
+            [],
+            ContentType.JSON
+        );
+        
+        return response.data;
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
 
 export const deleteProduct = async (id: number = -1): Promise<ResponseSuccess<string>> => {
     try {

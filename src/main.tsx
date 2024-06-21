@@ -13,10 +13,15 @@ import {
 import Dashboard from './pages/admin/Dashboard.tsx';
 import AdminLayout from './layouts/admin/AdminLayout.tsx';
 import Products from './pages/admin/products/Products.tsx';
+import ProductsUser from './pages/user/products/Products.tsx';
 import CreateProduct from './pages/admin/products/CreateProduct.tsx';
 import UpdateProduct from './pages/admin/products/UpdateProduct.tsx';
 import Category from './pages/admin/categories/Category.tsx';
 import Provider from './pages/admin/providers/Provider.tsx';
+import UserLayout from './layouts/user/UserLayout.tsx';
+import Home from './pages/user/home/Home.tsx';
+import Promotion from './pages/user/promotions/Promotion.tsx';
+import ProductDetail from './pages/user/products/ProductDetail.tsx';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +47,22 @@ const router = createBrowserRouter([
   {
     path: "/admin/products/providers",
     element: <AdminLayout><Provider /></AdminLayout>,
+  },
+  {
+    path: "/home",
+    element: <UserLayout><Home /></UserLayout>
+  },
+  {
+    path: "/products",
+    element: <UserLayout><ProductsUser /></UserLayout>
+  },
+  {
+    path: '/promotions',
+    element: <UserLayout><Promotion /></UserLayout>
+  }, 
+  {
+    path: "/products/:id",
+    element: <UserLayout><ProductDetail /></UserLayout>
   }
 ]);
 

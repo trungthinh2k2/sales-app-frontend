@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import { adminMenu } from "../common/Menu";
 
 type AdminLayoutProps = {
     children: ReactNode;
@@ -14,7 +15,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         <Box sx={{ display: "flex", flexDirection: "column", }}>
             
             <Box sx={{ display: "flex" }}>
-                {isMobile ? <></> : <Navbar></Navbar>}
+                {isMobile ? <></> : <Navbar items={adminMenu}></Navbar>}
                 <Box sx={{
                     display: 'flex', flexDirection: 'column',
 

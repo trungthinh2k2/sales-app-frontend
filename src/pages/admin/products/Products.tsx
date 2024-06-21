@@ -57,7 +57,7 @@ const Products = () => {
                     p: 0.5
                 }}>
                     {products.map((product: ProductModel, index: number) => (
-                        <Box sx={{ width: '260px' }} key={index}>
+                        <Box sx={{ width: '250px' }} key={index}>
                             <ProductCard
                                 productId={product.id ?? 0}
                                 productName={product.productName ?? ''}
