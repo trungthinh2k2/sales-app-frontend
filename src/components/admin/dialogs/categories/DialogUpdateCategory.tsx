@@ -15,7 +15,7 @@ type Props = {
 
 const DialogUpdateCategory = ({ open, handleClose, updateCategory, category, showwAlert}: Props) => {
     const [categoryName, setCategoryName] = useState<string>(category?.categoryName || '');
-    const [errorText, setErrorText] = useState('');
+    const errorText = '';
     const [status, setStatus] = useState<string>(category?.status?.toString() || Status.ACTIVE.toString());
 
 

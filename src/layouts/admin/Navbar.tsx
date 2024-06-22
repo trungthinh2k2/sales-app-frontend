@@ -7,16 +7,11 @@ import {
     ListItemIcon,
     ListItemText,
 } from "@mui/material";
-import {BackupTable, Equalizer, ExpandLess, ExpandMore, Home} from "@mui/icons-material";
+import {ExpandLess, ExpandMore} from "@mui/icons-material";
 import {pinkGradient, primaryGradient} from "../../theme.tsx";
 import {ReactNode, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
 import {blue} from "@mui/material/colors";
-import LocalMallIcon from '@mui/icons-material/LocalMall';
-import GroupIcon from '@mui/icons-material/Group';
-import MessageIcon from '@mui/icons-material/Message';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 type Item = {
     title: string,

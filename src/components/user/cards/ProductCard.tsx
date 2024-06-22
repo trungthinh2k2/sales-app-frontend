@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, CardMedia, Fab, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { ProductModel } from "../../../models/product.model";
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { ConvertPrice } from "../../../utils/convert-price";
@@ -13,19 +13,29 @@ const ProductCard = ({ product }: ProductCardProps) => {
     return (
         <Card sx={{
             maxWidth: 345,
+            // minHei: 364,
             border: '2px solid transparent',
             transition: 'border-color 0.2s ease-in-out',
+            position: 'relative',
             ':hover': {
                 borderColor: 'red',
                 cursor: 'pointer'
             }
         }} onClick={() => navigate('/products/' + product.id)}
         >
+             <Box sx={{
+                position: 'absolute',
+                top: 0,  p: 1,
+                borderRadius: '0px 0px 5px 0px',
+                background: 'red',
+            }}> <Typography sx={{
+                color: '#fff',
+                fontSize: '10px'
+            }}>Sale off 40%</Typography></Box>
             <CardMedia
                 sx={{ height: 200, resizeMode: 'contain' }}
                 image={product?.thumbnail ?? ''}
-                // title="{product?.productName ?? ''}"
-            />
+                />
             <CardContent>
                 <Typography gutterBottom
                     sx={{ display: "flex", justifyContent: "center", fontWeight: '600' }}

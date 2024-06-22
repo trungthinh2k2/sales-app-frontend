@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, ImageList, ImageListItem, InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, ImageList, InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import styled from "styled-components";
 import { CategoryModel } from "../../../models/category.model";
@@ -51,7 +51,7 @@ const CreateProduct = () => {
     const [sizes, setSizes] = useState<SizeModel[]>([]);
     const [images, setImages] = useState<File[]>([]);
     const [urls, setUrls] = useState<string[]>([]);
-    const [thumbnail, setThumbnail] = useState<number>(1);
+    const [thumbnail, setThumbnail] = useState<number>(0);
     const [productDetailDtos, setProductDetailDtos] = useState<ProductDetailDto[]>([]);
 
     useEffect(() => {

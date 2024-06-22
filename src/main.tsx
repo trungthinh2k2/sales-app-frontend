@@ -8,6 +8,7 @@ import { CssBaseline } from '@mui/material';
 import { theme } from './theme.tsx';
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
 import Dashboard from './pages/admin/Dashboard.tsx';
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <UserLayout><Home /></UserLayout>
+  },
+  {
+    path: "/",
+    element: <Navigate to="/home" />
   },
   {
     path: "/products",

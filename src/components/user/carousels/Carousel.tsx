@@ -1,9 +1,8 @@
-import { Box, IconButton, useMediaQuery } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import carousel1 from "../../../assets/carousel/anh-bia-1.png";
 import carousel2 from "../../../assets/carousel/anh-bia-2.png";
 import carousel3 from "../../../assets/carousel/anh-bia-3.png";
-import styled from "styled-components";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
@@ -12,30 +11,6 @@ const images = [
     carousel2,
     carousel3
 ]
-const CarouselBackground = styled(Box)({
-    // backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    width: "100%",
-    position: "relative",
-    
-    transition: "background-image 1.5s ease-in, opacity 1.5s ease-in-out",
-    zIndex: 1,
-    "&:before": {
-        content: '""',
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0,0,0,0.3)",
-        zIndex: -1,
-    }
-});
-
-// type Props = {
-//     children?: ReactNode;
-// }
 
 const Carousel = () => {
     const [viewIndex, setViewIndex] = useState<number>(0);
