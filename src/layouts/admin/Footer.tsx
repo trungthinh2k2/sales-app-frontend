@@ -1,5 +1,5 @@
 import { Box, useColorScheme } from "@mui/material"
-import ButtonGrandient from "../../components/common/ButtonGrandient";
+import { ButtonPrimaryGrandient } from "../../components/common/ButtonGrandient";
 
 const Footer = () => {
     const { mode, setMode } = useColorScheme();
@@ -7,13 +7,13 @@ const Footer = () => {
         <Box sx={{ backgroundColor: "primary.dark", bottom:0, height: 100 }}>
             Footer
 
-            <ButtonGrandient
+            <ButtonPrimaryGrandient
                 onClick={() => {
                     setMode(mode === 'light' ? 'dark' : 'light');
                 }}
             >
                 {mode === 'light' ? 'Turn dark' : 'Turn light'}
-            </ButtonGrandient>
+            </ButtonPrimaryGrandient>
         </Box>
     )
 }

@@ -1,7 +1,7 @@
 import { Button, styled } from "@mui/material";
-import { primaryGradient } from "../../theme";
+import { primaryGradient, secondaryGradient } from "../../theme";
 
-const ButtonGrandient = styled(Button)({
+export const ButtonPrimaryGrandient = styled(Button)({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around",
@@ -12,4 +12,13 @@ const ButtonGrandient = styled(Button)({
     }
 })
 
-export default ButtonGrandient;
+export const ButtonSecondaryGrandient = styled(Button)({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
+    ":hover": {
+        background: secondaryGradient,
+        color: "white",
+        cursor: "pointer",
+    }
+})

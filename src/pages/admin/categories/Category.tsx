@@ -1,5 +1,4 @@
 import { Alert, Box, Button, Paper, Snackbar, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useMediaQuery } from "@mui/material";
-import ButtonGrandient from "../../../components/common/ButtonGrandient";
 import { useEffect, useState } from "react";
 import { ResponseSuccess } from "../../../dtos/responses/response.susscess";
 import { CategoryModel } from "../../../models/category.model";
@@ -7,6 +6,7 @@ import { getCategories } from "../../../services/category.service";
 import DialogCreateCategory from "../../../components/admin/dialogs/categories/DialogCreateCategory";
 import DialogDeleteCategory from "../../../components/admin/dialogs/categories/DialogDeleteCategory";
 import DialogUpdateCategory from "../../../components/admin/dialogs/categories/DialogUpdateCategory";
+import { ButtonPrimaryGrandient } from "../../../components/common/ButtonGrandient";
 
 const Category = () => {
     const [open, setOpen] = useState(false);
@@ -73,7 +73,7 @@ const Category = () => {
         <Box sx={{ p: 2 }}>
             <Typography variant="h5">Loại sản phẩm</Typography>
             <Box>
-                <ButtonGrandient variant="contained" onClick={() => { setOpen(true) }}>Thêm loại sản phẩm</ButtonGrandient>
+                <ButtonPrimaryGrandient variant="contained" onClick={() => { setOpen(true) }}>Thêm loại sản phẩm</ButtonPrimaryGrandient>
                 {open && <DialogCreateCategory addCategory={addCategory} open={open} handleClose={handleClose} showAlert={showAlert} />}
                 {openDelete && <DialogDeleteCategory deleteCategory={deleteCategory} open={openDelete} handleClose={handleCloseDelete} category={category} showAlert={showAlert} />}
                 {openUpdate && <DialogUpdateCategory updateCategory={updateCategory} open={openUpdate} handleClose={handleCloseUpdate} category={category} showwAlert={showAlert} />}

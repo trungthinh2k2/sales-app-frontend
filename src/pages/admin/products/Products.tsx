@@ -1,7 +1,7 @@
 import { Box, MenuItem, Pagination, Select, Stack, Typography } from "@mui/material";
 import SearchInput from "../../../components/admin/search-input/SearchInput";
 import ProductCard from "../../../components/admin/cards/ProductCard";
-import ButtonGrandient from "../../../components/common/ButtonGrandient";
+import { ButtonPrimaryGrandient } from "../../../components/common/ButtonGrandient";
 import { useNavigate } from "react-router-dom";
 import { ProductModel } from "../../../models/product.model";
 import { useEffect, useState } from "react";
@@ -35,7 +35,7 @@ const Products = () => {
             <Box>
                 <Typography variant="h6">Danh sách sản phẩm</Typography>
                 <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                    <ButtonGrandient variant="contained" onClick={() => navigate("create")}>Thêm sản phẩm</ButtonGrandient>
+                    <ButtonPrimaryGrandient variant="contained" onClick={() => navigate("create")}>Thêm sản phẩm</ButtonPrimaryGrandient>
                 </Box>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Box>

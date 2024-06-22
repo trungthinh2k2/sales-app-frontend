@@ -15,7 +15,6 @@ const DialogCreateCategory = ({ open, handleClose, addCategory, showAlert }: Pro
     const [errorText, setErrorText] = useState('')
 
     const handleSubmit = async () => {
-        console.log(categoryName)
         if (categoryName === "") {
             setErrorText("Loại sản phẩm không được để trống")
         } else {

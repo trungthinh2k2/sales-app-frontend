@@ -1,6 +1,6 @@
 import {Box, Input} from "@mui/material";
-import IconButtonGradient from "../../common/ButtonGrandient";
 import SearchIcon from "@mui/icons-material/Search";
+import IconButtonGradient from "../../common/IconButtonGradient";
 
 type Props = {
     placeHolder?: string

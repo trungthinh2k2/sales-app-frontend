@@ -1,10 +1,10 @@
 import { Alert, Box, Button, Paper, Snackbar, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import ButtonGrandient from "../../../components/common/ButtonGrandient";
 import { ProviderModel } from "../../../models/provider.model";
 import { useEffect, useState } from "react";
 import { ResponseSuccess } from "../../../dtos/responses/response.susscess";
 import { getProviders } from "../../../services/provider.service";
 import DialogDeleteProvider from "../../../components/admin/dialogs/providers/DialogDeleteProvider";
+import { ButtonPrimaryGrandient } from "../../../components/common/ButtonGrandient";
 
 const Provider = () => {
     const [providers, setProviders] = useState<ProviderModel[]>([]);
@@ -50,7 +50,7 @@ const Provider = () => {
         <Box sx={{p: 2}}>
             <Typography variant="h5">Danh sách nhà cung cấp</Typography>
             <Box>
-                <ButtonGrandient variant="contained">Thêm nhà cung cấp</ButtonGrandient>
+                <ButtonPrimaryGrandient variant="contained">Thêm nhà cung cấp</ButtonPrimaryGrandient>
                 {openDelete && <DialogDeleteProvider open={openDelete} handleClose={handleCloseDelete} deleteProvider={deleteProvider} provider={provider} showAlert={showAlert}/>}
                 
                 {openAlert.show && <Snackbar
