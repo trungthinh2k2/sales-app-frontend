@@ -4,13 +4,15 @@ import IconButtonGradient from "../../components/common/IconButtonGradient";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Notifications } from "@mui/icons-material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { primaryGradient } from "../../theme";
 import MenuIcon from '@mui/icons-material/Menu';
 import NavBar from "../admin/Navbar";
 import { useState } from "react";
 import logoIcon from "../../assets/logo/Logo-Owen.png";
 import { userMenu } from "../common/Menu";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store/store";
 
 
 
@@ -19,6 +21,8 @@ const Header = () => {
     const isMobile: boolean = useMediaQuery('(max-width:600px)');
     const isMedium: boolean = useMediaQuery('(max-width:1150px)');
     const [open, setOpen] = useState(false);
+    const cart = useSelector((state: RootState) => state.cart.items);
+    const navigate = useNavigate();
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
     };
@@ -59,9 +63,9 @@ const Header = () => {
                     display: 'flex',
                     gap: '15px',
                 }}>
-                    <Tooltip title="giỏ hàng">
+                    <Tooltip title="giỏ hàng" onClick={()=> navigate('/cart')}>
                         <IconButtonGradient>
-                            <Badge badgeContent={4} color="primary">
+                            <Badge badgeContent={cart.length} color="primary">
                                 <ShoppingCartIcon fontSize="small" />
                             </Badge>
                         </IconButtonGradient>

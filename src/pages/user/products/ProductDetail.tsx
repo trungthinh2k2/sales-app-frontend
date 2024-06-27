@@ -9,14 +9,14 @@ import { ProductImageModel } from "../../../models/product-image.model";
 import Carousel from "react-material-ui-carousel";
 import { ConvertPrice } from "../../../utils/convert-price";
 import { ProductDetailModel } from "../../../models/product-detail.model";
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
-import { secondaryGradient } from "../../../theme";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { ColorModel } from "../../../models/color.model";
 import { SizeModel } from "../../../models/size.model";
-import { ButtonSecondaryGrandient } from "../../../components/common/ButtonGrandient";
+import { addToCartLocalStorage } from "../../../utils/cart-handle";
+import { useDispatch } from "react-redux";
+import { updateCartState } from "../../../redux/reducers/card-reducer";
+import QuantityProduct from "../../../components/user/products/QuantityProduct";
 
 const SizeColorBox = ({ text, onClick, selected }: { text: string | number, onClick(): void, selected: boolean }) => {
     return (
@@ -32,7 +32,6 @@ const SizeColorBox = ({ text, onClick, selected }: { text: string | number, onCl
                 background: '#0000',
                 borderColor: 'red',
             },
-
         }}
             onClick={onClick}
         >
@@ -42,7 +41,6 @@ const SizeColorBox = ({ text, onClick, selected }: { text: string | number, onCl
 }
 
 const ProductDetail = () => {
-
     const { id } = useParams();
     const [productResponse, setProductResponse] = useState<ProductModel>();
     const [productImages, setProductImages] = useState<ProductImageModel[]>([]);
@@ -53,6 +51,7 @@ const ProductDetail = () => {
     const [selectedSize, setSelectedSize] = useState<SizeModel | null>(null);
     const [buyQuantity, setBuyQuantity] = useState<number>(1);
     const [availableQuantity, setAvailableQuantity] = useState<number>(0);
+    const dispatch = useDispatch()
 
     useEffect(() => {
         (async () => {
@@ -70,7 +69,6 @@ const ProductDetail = () => {
                         uniqueColors.push(productDetail.color)
                     }
                 });
-
                 setColors(uniqueColors);
 
                 let uniqueSizes: SizeModel[] = [];
@@ -82,24 +80,25 @@ const ProductDetail = () => {
                     }
                 })
                 setSizes(uniqueSizes);
-
             } catch (error) {
-
+                console.log(error);
             }
         })();
     }, [])
 
     useEffect(() => {
         if (selectedColor && selectedSize) {
-            const detail = productDetails.find(
-                (detail) => detail.color.id === selectedColor.id && detail.size.id === selectedSize.id
-            )
-            setAvailableQuantity(detail?.quantity ?? 0)
+            const detail = getProductDetailByColorIdAndSizeId();
+            productResponse?.totalQuantity && setAvailableQuantity(detail?.quantity ?? 0)
         }
         else {
             productResponse?.totalQuantity && setAvailableQuantity(productResponse.totalQuantity)
         }
     }, [selectedColor, selectedSize, productDetails])
+
+    const setBuyQuantityProp = (value: number) => {
+        setBuyQuantity(value);
+    }
 
     const handleIncrement = () => {
         if (buyQuantity < availableQuantity) {
@@ -113,6 +112,15 @@ const ProductDetail = () => {
         }
     }
 
+    const getProductDetailByColorIdAndSizeId = () => {
+        const detailFilter = productDetails.filter((productDetail: ProductDetailModel) => {
+            return productDetail.color.id === selectedColor?.id && productDetail.size.id === selectedSize?.id;
+        });
+        if (detailFilter.length > 0) {
+            return detailFilter[0];
+        }
+    }
+
     const addToCart = () => {
         if (!selectedColor || !selectedSize) {
             alert('Vui lòng chọn màu sắc và kích thước');
@@ -122,7 +130,16 @@ const ProductDetail = () => {
             alert('Số lượng sản phẩm không đủ');
             return;
         }
-        alert('Thêm vào giỏ hàng thành công');
+        const productDetail = getProductDetailByColorIdAndSizeId();
+        if (productDetail) {
+            addToCartLocalStorage({
+                productDetail: productDetail,
+                quantity: buyQuantity,
+            })
+            setAvailableQuantity(availableQuantity - buyQuantity);
+            setBuyQuantity(1);
+        }
+        dispatch(updateCartState())
     }
 
     return (
@@ -143,17 +160,17 @@ const ProductDetail = () => {
                     >
                         {productImages.map((productImage: ProductImageModel) => {
                             return (
-                                <Box>
+                                <Box key={productImage.id}>
                                     <img width={450} height={450} src={productImage.path} alt="" />
                                 </Box>
                             )
                         })}
                     </Carousel>
                 </Box>
-                <Box sx={{ width: '100%' }}>
-                    <Typography variant="h5" sx={{ fontWeight: '700', pb: 1 }}>{productResponse?.productName}</Typography>
+                <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    <Typography variant="h5" sx={{ fontWeight: '700' }}>{productResponse?.productName}</Typography>
                     <Typography variant="h6">{productResponse?.provider?.providerName}</Typography>
-                    <Typography variant="h5" sx={{ color: 'red', fontWeight: '700', pt: 1, pb: 1 }}>{ConvertPrice(productResponse?.price ?? 0)}</Typography>
+                    <Typography variant="h5" sx={{ color: 'red', fontWeight: '700', }}>{ConvertPrice(productResponse?.price ?? 0)}</Typography>
                     {productResponse?.avgRating ? <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center' }}> <Rating name="read-only" value={productResponse?.avgRating} readOnly />
                         <Typography>{productResponse.numberOfRating + ' đánh giá'}</Typography>
                     </Box> :
@@ -184,33 +201,29 @@ const ProductDetail = () => {
                         </Box>
                         <Typography>Số lượng trong kho: {availableQuantity}</Typography>
 
-                        <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+                        <Box sx={{ display: 'flex', gap: 1, mb: 2}}>
                             <Typography >Chọn số lượng: </Typography>
-                            <Button onClick={handleDecrement}>
-                                <RemoveIcon />
-                            </Button>
-                            <TextField type="number" value={buyQuantity} onChange={(e) => setBuyQuantity(Number(e.target.value))} />
-                            <Button onClick={handleIncrement}>
-                                <AddIcon />
-                            </Button>
+                            <QuantityProduct quantity={buyQuantity} setQuantity={setBuyQuantityProp} maxValue={availableQuantity} />
                         </Box>
                     </Box>
                     <Box sx={{ display: 'flex', gap: 2 }}>
-                        <ButtonSecondaryGrandient
+                        <Button
                             variant="contained"
                             sx={{
                                 width: 'auto',
                                 height: '48px',
                             }}
+                            color="warning"
                             onClick={addToCart}
-                        > <LocalMallIcon sx={{ mr: 1 }} /> Thêm vào giỏ hàng</ButtonSecondaryGrandient>
-                        <ButtonSecondaryGrandient
+                        > <LocalMallIcon sx={{ mr: 1 }} /> Thêm vào giỏ hàng</Button>
+                        <Button
                             variant="contained"
                             sx={{
                                 width: 'auto',
                                 height: '48px',
                             }}
-                        > <ShoppingCartIcon sx={{ mr: 1 }} /> Mua ngay</ButtonSecondaryGrandient>
+                            color="success"
+                        > <ShoppingCartIcon sx={{ mr: 1 }} />Mua ngay</Button>
                     </Box>
                 </Box>
             </Box>

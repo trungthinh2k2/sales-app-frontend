@@ -13,7 +13,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
     return (
         <Card sx={{
             maxWidth: 345,
-            // minHei: 364,
             border: '2px solid transparent',
             transition: 'border-color 0.2s ease-in-out',
             position: 'relative',
@@ -23,9 +22,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
             }
         }} onClick={() => navigate('/products/' + product.id)}
         >
-             <Box sx={{
+            <Box sx={{
                 position: 'absolute',
-                top: 0,  p: 1,
+                top: 0, p: 1,
                 borderRadius: '0px 0px 5px 0px',
                 background: 'red',
             }}> <Typography sx={{
@@ -35,10 +34,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <CardMedia
                 sx={{ height: 200, resizeMode: 'contain' }}
                 image={product?.thumbnail ?? ''}
-                />
+            />
             <CardContent>
                 <Typography gutterBottom
-                    sx={{ display: "flex", justifyContent: "center", fontWeight: '600' }}
+                    sx={{
+                        fontWeight: '600', 
+                        minHeight: '48px',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'normal',
+                    }}
                 >
                     {product?.productName ?? ''}
                 </Typography>

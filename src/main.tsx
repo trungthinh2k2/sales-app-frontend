@@ -21,8 +21,11 @@ import Category from './pages/admin/categories/Category.tsx';
 import Provider from './pages/admin/providers/Provider.tsx';
 import UserLayout from './layouts/user/UserLayout.tsx';
 import Home from './pages/user/home/Home.tsx';
-import Promotion from './pages/user/promotions/Promotion.tsx';
 import ProductDetail from './pages/user/products/ProductDetail.tsx';
+import Cart from './pages/user/cart/Cart.tsx';
+import Promotion from './pages/user/promotions/Promotion.tsx';
+import { Provider as ProviderRedux } from 'react-redux';
+import { store } from './redux/store/store.ts';
 
 const router = createBrowserRouter([
   {
@@ -68,15 +71,20 @@ const router = createBrowserRouter([
   {
     path: "/products/:id",
     element: <UserLayout><ProductDetail /></UserLayout>
+  }, 
+  {
+    path: '/cart',
+    element: <UserLayout><Cart /></UserLayout>
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <ProviderRedux store={store}>
     <CssVarsProvider theme={theme}>
       <CssBaseline />
       <RouterProvider router={router}></RouterProvider>
     </CssVarsProvider>
-
+    </ProviderRedux>
   </React.StrictMode>,
 )
