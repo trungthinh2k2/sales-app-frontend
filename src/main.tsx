@@ -26,6 +26,10 @@ import Cart from './pages/user/cart/Cart.tsx';
 import Promotion from './pages/user/promotions/Promotion.tsx';
 import { Provider as ProviderRedux } from 'react-redux';
 import { store } from './redux/store/store.ts';
+import Login from './pages/user/auth/Login.tsx';
+import LoginSuccsess from './pages/user/auth/LoginSuccsess.tsx';
+import Register from './pages/user/auth/Register.tsx';
+import Verify from './pages/user/auth/Verify.tsx';
 
 const router = createBrowserRouter([
   {
@@ -67,24 +71,40 @@ const router = createBrowserRouter([
   {
     path: '/promotions',
     element: <UserLayout><Promotion /></UserLayout>
-  }, 
+  },
   {
     path: "/products/:id",
     element: <UserLayout><ProductDetail /></UserLayout>
-  }, 
+  },
   {
     path: '/cart',
     element: <UserLayout><Cart /></UserLayout>
+  },
+  {
+    path: '/auth/login',
+    element: <Login></Login>
+  },
+  {
+    path: '/auth/login-success',
+    element: <LoginSuccsess></LoginSuccsess>
+  },
+  {
+    path: '/auth/register',
+    element: <Register></Register>
+  },
+  {
+    path: '/auth/verify-email',
+    element: <Verify></Verify>
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ProviderRedux store={store}>
-    <CssVarsProvider theme={theme}>
-      <CssBaseline />
-      <RouterProvider router={router}></RouterProvider>
-    </CssVarsProvider>
+      <CssVarsProvider theme={theme}>
+        <CssBaseline />
+        <RouterProvider router={router}></RouterProvider>
+      </CssVarsProvider>
     </ProviderRedux>
   </React.StrictMode>,
 )

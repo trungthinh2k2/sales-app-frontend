@@ -1,4 +1,4 @@
-import { AppBar, Badge, Box, Drawer, ListItemButton, Tooltip, Typography, useMediaQuery } from "@mui/material";
+import { AppBar, Avatar, Badge, Box, Drawer, ListItemButton, Menu, MenuItem, Tooltip, Typography, useMediaQuery } from "@mui/material";
 import SearchInput from "../../components/admin/search-input/SearchInput";
 import IconButtonGradient from "../../components/common/IconButtonGradient";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -23,10 +23,11 @@ const Header = () => {
     const [open, setOpen] = useState(false);
     const cart = useSelector((state: RootState) => state.cart.items);
     const navigate = useNavigate();
+    
+
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
     };
-
     const DrawerList = (
         <NavBar items={userMenu}></NavBar>
     );
@@ -43,7 +44,7 @@ const Header = () => {
             pr: isMobile ? 2 : 6,
             backgroundColor: "background.paper"
         }}>
-            <Box sx={{ display: 'flex', height: '250px', flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+            <Box sx={{ display: 'flex', height: '250px', flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                 <img src={logoIcon} alt={"logo"} style={{ width: "10%", height: '5%' }} />
                 <Box sx={{ flex: isMobile ? 1 : '', display: 'flex', alignItems: 'center' }}>
                     {isMedium || isMobile ? <Box>
@@ -56,14 +57,14 @@ const Header = () => {
                     </Box> : <></>}
                 </Box>
 
-                {!isMobile && <Box sx={{display: 'flex', width: '60%' }}>
+                {!isMobile && <Box sx={{ display: 'flex', width: '60%' }}>
                     <SearchInput placeHolder="Nhập sản phẩm cần tìm ..." />
                 </Box>}
                 <Box sx={{
                     display: 'flex',
                     gap: '15px',
                 }}>
-                    <Tooltip title="giỏ hàng" onClick={()=> navigate('/cart')}>
+                    <Tooltip title="giỏ hàng" onClick={() => navigate('/cart')}>
                         <IconButtonGradient>
                             <Badge badgeContent={cart.length} color="primary">
                                 <ShoppingCartIcon fontSize="small" />
@@ -82,34 +83,34 @@ const Header = () => {
                             <AccountCircleIcon />
                         </IconButtonGradient>
                     </Tooltip>
+                    </Box>
                 </Box>
-            </Box>
-            <Box>
-                {!isMobile && !isMedium ? <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '10px',
-                    backgroundColor: 'yellow',
-                }}>
-                    {userMenu.map((item: any, index: number) => (
-                        <ListItemButton key={index} component={Link} to={item.href} sx={{
-                            display: "flex",
-                            ':hover': {
-                                background: primaryGradient,
-                                color: 'white'
-                            },
-                            background: location.pathname.startsWith(item.href) ? primaryGradient : 'none',
-                            color: location.pathname.startsWith(item.href) ? 'white' : 'none',
-                            textDecoration: 'none',
-                            pl: 1, pr: 1,
+                <Box>
+                    {!isMobile && !isMedium ? <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: '10px',
+                        backgroundColor: 'yellow',
+                    }}>
+                        {userMenu.map((item: any, index: number) => (
+                            <ListItemButton key={index} component={Link} to={item.href} sx={{
+                                display: "flex",
+                                ':hover': {
+                                    background: primaryGradient,
+                                    color: 'white'
+                                },
+                                background: location.pathname.startsWith(item.href) ? primaryGradient : 'none',
+                                color: location.pathname.startsWith(item.href) ? 'white' : 'none',
+                                textDecoration: 'none',
+                                pl: 1, pr: 1,
 
-                        }}>
-                            <Typography>{item.title}</Typography>
-                        </ListItemButton>
-                    ))}
-                </Box> : <></>}
-            </Box>
+                            }}>
+                                <Typography>{item.title}</Typography>
+                            </ListItemButton>
+                        ))}
+                    </Box> : <></>}
+                </Box>
 
 
 

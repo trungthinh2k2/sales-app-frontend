@@ -17,6 +17,7 @@ import { addToCartLocalStorage } from "../../../utils/cart-handle";
 import { useDispatch } from "react-redux";
 import { updateCartState } from "../../../redux/reducers/card-reducer";
 import QuantityProduct from "../../../components/user/products/QuantityProduct";
+import ListImage from "../../../components/user/list-image/ListImage";
 
 const SizeColorBox = ({ text, onClick, selected }: { text: string | number, onClick(): void, selected: boolean }) => {
     return (
@@ -151,7 +152,9 @@ const ProductDetail = () => {
                     gap: 2,
                 }}
             >
-                <Box sx={{ borderRight: 1, paddingRight: 2, borderColor: '#f6f6f6' }}>
+
+                <ListImage images={productImages} />
+                {/* <Box sx={{ borderRight: 1, paddingRight: 2, borderColor: '#f6f6f6' }}>
                     <Carousel
                         sx={{
                             width: 450,
@@ -166,8 +169,8 @@ const ProductDetail = () => {
                             )
                         })}
                     </Carousel>
-                </Box>
-                <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 1 }}>
+                </Box> */}
+                <Box sx={{ width: '60%', display: 'flex', flexDirection: 'column', gap: 1 }}>
                     <Typography variant="h5" sx={{ fontWeight: '700' }}>{productResponse?.productName}</Typography>
                     <Typography variant="h6">{productResponse?.provider?.providerName}</Typography>
                     <Typography variant="h5" sx={{ color: 'red', fontWeight: '700', }}>{ConvertPrice(productResponse?.price ?? 0)}</Typography>
@@ -201,7 +204,7 @@ const ProductDetail = () => {
                         </Box>
                         <Typography>Số lượng trong kho: {availableQuantity}</Typography>
 
-                        <Box sx={{ display: 'flex', gap: 1, mb: 2}}>
+                        <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
                             <Typography >Chọn số lượng: </Typography>
                             <QuantityProduct quantity={buyQuantity} setQuantity={setBuyQuantityProp} maxValue={availableQuantity} />
                         </Box>
