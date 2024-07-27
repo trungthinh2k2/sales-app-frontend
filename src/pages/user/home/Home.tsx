@@ -1,15 +1,14 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import { ProductModel } from "../../../models/product.model";
 import { useEffect, useState } from "react";
 import ProductCard from "../../../components/user/cards/ProductCard";
-import { ResponseSuccess } from "../../../dtos/responses/response.susscess";
-import { getProducts } from "../../../services/product.service";
+import { getPageProducts } from "../../../services/product.service";
 import { primaryGradient } from "../../../theme";
 import Carousel from "../../../components/user/carousels/Carousel";
+import { ProductUserResponse } from "../../../dtos/responses/products/productUser-response";
 
 
 const Home = () => {
-    const [productSales, setProductSales] = useState<ProductModel[]>([]);
+    const [productSales, setProductSales] = useState<ProductUserResponse[]>([]);
 
     const [isVisible, setIsVisible] = useState(true);
 
@@ -22,14 +21,13 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        (async () => {
-            try {
-                const response: ResponseSuccess<ProductModel[]> = await getProducts();
-                setProductSales(response.data);
-            } catch (error) {
-                console.log(error);
+        const fetchData = async () => {
+            const response = await getPageProducts();
+            if (response.status === 200) {
+                 setProductSales(response.data.data);
             }
-        })()
+       };
+       fetchData();
     }, []);
 
     return (
@@ -44,9 +42,10 @@ const Home = () => {
                     }}>
                         Sản phẩm khuyến mãi
                     </Typography>
+                    
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '30px', justifyContent: 'center' }}>
-                        {productSales.map((product: ProductModel) => (
-                            <Box key={product.id}
+                        {productSales.map((product: ProductUserResponse) => (
+                            <Box key={product.product.id}
                                 sx={{
                                     flexBasis: '250px',
                                 }}>
@@ -65,9 +64,6 @@ const Home = () => {
                     </Box>
                 </Container>}
 
-
-
-
             {productSales.length > 0 &&
                 <Container>
                     <Typography variant="h6" sx={{
@@ -76,13 +72,10 @@ const Home = () => {
                         transition: 'opacity 0.5s ease-in-out',
                     }}>Quần áo nam</Typography>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '30px', justifyContent: 'center' }}>
-                        {productSales.map((product: ProductModel) => (
-                            <Box key={product.id}
+                        {productSales.map((product: ProductUserResponse) => (
+                            <Box key={product.product.id}
                                 sx={{
                                     flexBasis: '250px',
-                                    // ':hover': {
-                                    //     boxShadow: '0 0 10px 0 #ccc',
-                                    // }
                                 }}>
                                 <ProductCard product={product}></ProductCard>
                             </Box>

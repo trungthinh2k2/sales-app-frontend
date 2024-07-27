@@ -1,4 +1,4 @@
-import { Box, Button, Container, Rating, TextField, Typography } from "@mui/material"
+import { Box, Button, Container, Rating, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import { ProductModel } from "../../../models/product.model";
 import { ProductResponse } from "../../../dtos/responses/product-response";
@@ -6,7 +6,6 @@ import { ResponseSuccess } from "../../../dtos/responses/response.susscess";
 import { useParams } from "react-router-dom";
 import { getProductById } from "../../../services/product.service";
 import { ProductImageModel } from "../../../models/product-image.model";
-import Carousel from "react-material-ui-carousel";
 import { ConvertPrice } from "../../../utils/convert-price";
 import { ProductDetailModel } from "../../../models/product-detail.model";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -44,6 +43,7 @@ const SizeColorBox = ({ text, onClick, selected }: { text: string | number, onCl
 const ProductDetail = () => {
     const { id } = useParams();
     const [productResponse, setProductResponse] = useState<ProductModel>();
+    const [productUserResponse, setProductUserResponse] = useState<ProductResponse>();
     const [productImages, setProductImages] = useState<ProductImageModel[]>([]);
     const [productDetails, setProductDetails] = useState<ProductDetailModel[]>([]);
     const [colors, setColors] = useState<ColorModel[]>([]);
@@ -101,18 +101,6 @@ const ProductDetail = () => {
         setBuyQuantity(value);
     }
 
-    const handleIncrement = () => {
-        if (buyQuantity < availableQuantity) {
-            setBuyQuantity(buyQuantity + 1);
-        }
-    }
-
-    const handleDecrement = () => {
-        if (buyQuantity > 1) {
-            setBuyQuantity(buyQuantity - 1);
-        }
-    }
-
     const getProductDetailByColorIdAndSizeId = () => {
         const detailFilter = productDetails.filter((productDetail: ProductDetailModel) => {
             return productDetail.color.id === selectedColor?.id && productDetail.size.id === selectedSize?.id;
@@ -154,26 +142,14 @@ const ProductDetail = () => {
             >
 
                 <ListImage images={productImages} />
-                {/* <Box sx={{ borderRight: 1, paddingRight: 2, borderColor: '#f6f6f6' }}>
-                    <Carousel
-                        sx={{
-                            width: 450,
-                            height: 496,
-                        }}
-                    >
-                        {productImages.map((productImage: ProductImageModel) => {
-                            return (
-                                <Box key={productImage.id}>
-                                    <img width={450} height={450} src={productImage.path} alt="" />
-                                </Box>
-                            )
-                        })}
-                    </Carousel>
-                </Box> */}
+
                 <Box sx={{ width: '60%', display: 'flex', flexDirection: 'column', gap: 1 }}>
                     <Typography variant="h5" sx={{ fontWeight: '700' }}>{productResponse?.productName}</Typography>
                     <Typography variant="h6">{productResponse?.provider?.providerName}</Typography>
-                    <Typography variant="h5" sx={{ color: 'red', fontWeight: '700', }}>{ConvertPrice(productResponse?.price ?? 0)}</Typography>
+                    <Box sx={{ display: 'flex', gap: '25px' }}>
+                        <Typography variant="h5" sx={{ color: 'red', fontWeight: '700', }}>{ConvertPrice(productResponse?.price ?? 0)}</Typography>
+                        <Typography variant="h5" sx={{ color: 'gray', fontWeight: '300', textDecoration: 'line-through' }}>{ConvertPrice(productResponse?.price ?? 0)}</Typography>
+                    </Box>
                     {productResponse?.avgRating ? <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, alignItems: 'center' }}> <Rating name="read-only" value={productResponse?.avgRating} readOnly />
                         <Typography>{productResponse.numberOfRating + ' đánh giá'}</Typography>
                     </Box> :
