@@ -18,6 +18,7 @@ import Register from "../pages/user/auth/Register";
 import Verify from "../pages/user/auth/Verify";
 import ProtectRouter from "./ProtectRoutes";
 import { Role } from "../models/user.model";
+import ForgotPassword from "../pages/user/auth/ForgotPassword";
 
 const adminRoutes = [
     {
@@ -89,6 +90,10 @@ const publicRoutes = [
       {
         path: '/auth/verify-email',
         element: <Verify></Verify>
+      },
+      {
+        path: '/auth/forgot-password',
+        element: <ForgotPassword></ForgotPassword>
       }
 ]
 

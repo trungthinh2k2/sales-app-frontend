@@ -1,4 +1,4 @@
-import { Backdrop, Box, Button, CircularProgress, Container, IconButton, Link, TextField, Typography } from "@mui/material"
+import { Backdrop, Box, Button, CircularProgress, Container, IconButton, TextField, Typography } from "@mui/material"
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import { ButtonPrimaryGrandient } from "../../../components/common/ButtonGrandient";
@@ -11,7 +11,7 @@ import { LoginResponse } from "../../../dtos/responses/login-response";
 import { saveToken } from "../../../services/token.service";
 import { UserModel } from "../../../models/user.model";
 import { getUserByEmail, saveUserToLocalStorage } from "../../../services/user.service";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const validationLoginSchema = yup.object({
@@ -98,8 +98,9 @@ const Login = () => {
                 />
                 {error && <Typography component={'span'} sx={{ color: 'red' }}>{error}</Typography>}
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Link href="/forgot-password"
-                        sx={{ color: 'black', textDecoration: 'none' }}>
+
+                    <Link to="/auth/forgot-password"
+                    style={{ color: 'blue', textDecoration: 'none' }}>
                         Forgot password?</Link>
                 </Box>
 
