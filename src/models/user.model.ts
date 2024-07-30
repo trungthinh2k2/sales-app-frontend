@@ -1,3 +1,5 @@
+import { AddressModel } from "./addess.model";
+
 export enum Gender {
     MALE = 'MALE',
     FEMALE = 'FEMALE',
@@ -9,6 +11,7 @@ export enum Role {
 }
 
 export type UserModel = {
+    id: number;
     createdAt: Date;
     updatedAt: Date;
     name: string;
@@ -17,7 +20,7 @@ export type UserModel = {
     dateOfBirth?: Date;
     gender?: Gender;
     role?: Role;
-    address?: string;
+    address?: AddressModel;
     facebookAccountId?: string;
     googleAccountId?: string;
     avatarUrl?: string;

@@ -12,6 +12,7 @@ const LoginSuccsess = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const email = params.get('email');
+    const historyPath = localStorage.getItem('historyPath');
     useEffect(() => {
         (async () => {
             const accessToken = getCookies('accessToken');
@@ -25,11 +26,13 @@ const LoginSuccsess = () => {
                     saveToken(loginResponse);
                     const response: ResponseSuccess<UserModel> = await getUserByEmail(email);
                     const user: UserModel = response.data;
+                    
                     saveUserToLocalStorage(user);
                 } catch (error) {
                     navigate("/auth/login");
                 }
-                navigate("/home");
+                navigate(historyPath || "/home");
+                localStorage.removeItem('historyPath');
             } else {
                 navigate("/auth/login");
             }

@@ -51,8 +51,18 @@ export const verifyEmail = async (verifyEmailDto: VerifyEmailDto): Promise<Respo
     }
 }
 
-export const logout = () => {
-
+export const logout = async (accessToken: string): Promise<ResponseSuccess<string>> => {
+    try {
+        const response = await requestConfig(
+            `auth/logout`,
+            Method.POST,
+            accessToken,
+            ContentType.TEXT_PLAIN
+        );
+        return response.data;
+    } catch (error) {
+        return Promise.reject(error);
+    }
 }
 
 export const sendEmailForgotPassword = async (email: string): Promise<ResponseSuccess<string>> => {
