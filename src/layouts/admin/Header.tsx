@@ -19,19 +19,19 @@ const Header = () => {
         <Navbar items={adminMenu} ></Navbar>
     );
     return (
-        <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", pl: 2, pr:2  }}>
+        <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", pl: 2, pr: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
                 {isMobile
                     ? <></>
                     : <Box>
-                        <SearchInput placeHolder="Nhập nội dung cần tìm ..."/>
-                        
+                        <SearchInput placeHolder="Nhập nội dung cần tìm ..." />
+
                     </Box>
                 }
 
             </Box>
             <Box sx={{ display: "flex", width: isMobile ? "40%" : "20%", alignItems: "center", justifyContent: 'space-evenly' }}>
-                
+
                 <IconButtonGradient type="button" sx={{ p: '10px' }} aria-label="notify">
                     <Badge badgeContent={4} color="primary">
                         <NotificationsIcon fontSize="small" />
@@ -48,7 +48,8 @@ const Header = () => {
                             onClose={toggleDrawer(false)}
                         >
                             {DrawerList}
-                        </Drawer></Box>
+                        </Drawer>
+                    </Box>
 
                     : <></>}
             </Box>

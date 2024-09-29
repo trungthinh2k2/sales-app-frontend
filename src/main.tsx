@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.scss'
 import {
@@ -11,16 +10,16 @@ import {
 } from "react-router-dom";
 import { Provider as ProviderRedux } from 'react-redux';
 import { store } from './redux/store/store.ts';
-import { router } from './routers/routes.tsx';
+import { router } from './routes/routes.tsx';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ProviderRedux store={store}>
       <CssVarsProvider theme={theme}>
         <CssBaseline />
         <RouterProvider router={router}></RouterProvider>
       </CssVarsProvider>
     </ProviderRedux>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )

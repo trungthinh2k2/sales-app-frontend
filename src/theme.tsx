@@ -9,7 +9,7 @@ export const theme = extendTheme({
                     main: pink[600],
                 },
                 secondary: {
-                    main: '#f0f0f0'
+                    main: pink[600],
                 },
 
             },

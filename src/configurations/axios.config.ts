@@ -20,6 +20,7 @@ const requestConfig = <T>(endpoint: string, method: Method, data: T, contentType
     const headers = {
         'Content-Type': contentType,
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
     }
 
     const instance = axios.create({

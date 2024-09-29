@@ -8,6 +8,9 @@ import { UserModel } from "../../../models/user.model";
 import { CartItemModel } from "../../../models/cart-item.model";
 import { ButtonPrimaryGrandient } from "../../../components/common/ButtonGrandient";
 import { createOrder } from "../../../services/order.service";
+import { ResponseSuccess } from "../../../dtos/responses/response.susscess";
+import { OrderModel } from "../../../models/order.model";
+import { getVnpPaymentUrl } from "../../../services/payment.service";
 
 
 const validationPaymentSchema = yup.object({
@@ -43,11 +46,17 @@ export const Payment = () => {
         },
         validationSchema: validationPaymentSchema,
         onSubmit: async (values: OrderDto) => {
-            console.log(values);
-            await createOrder(values);
-            alert('đặt hàng thành công');
-            localStorage.removeItem("cart");
-            window.location.href = '/home';
+            const response: ResponseSuccess<OrderModel> = await createOrder(values);
+            const order :OrderModel = response.data;
+            if(order.paymentMethod === PaymentMethod.CC) {
+                alert('Đã đặt hàng thành công, vui lòng chuyển tiền qua đây: ');
+                const paymentUrl :string = (await getVnpPaymentUrl(order.discountedAmount)).data;
+                console.log(paymentUrl);
+                
+                location.href = paymentUrl;
+                localStorage.removeItem("cart");
+            }
+
         },
     })
     return (

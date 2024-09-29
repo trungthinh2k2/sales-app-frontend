@@ -6,7 +6,6 @@ import { primaryGradient } from "../../../theme";
 import Carousel from "../../../components/user/carousels/Carousel";
 import { ProductUserResponse } from "../../../dtos/responses/products/productUser-response";
 
-
 const Home = () => {
     const [productSales, setProductSales] = useState<ProductUserResponse[]>([]);
 
@@ -24,10 +23,10 @@ const Home = () => {
         const fetchData = async () => {
             const response = await getPageProducts();
             if (response.status === 200) {
-                 setProductSales(response.data.data);
+                setProductSales(response.data.data);
             }
-       };
-       fetchData();
+        };
+        fetchData();
     }, []);
 
     return (
@@ -35,14 +34,16 @@ const Home = () => {
             <Carousel />
             {productSales.length > 0 &&
                 <Container>
-                    <Typography variant="h6" sx={{
-                        color: 'red', p: 2,
-                        opacity: isVisible ? 1 : 0,
-                        transition: 'opacity 0.5s ease-in-out',
-                    }}>
+                    <Typography
+                        variant="h6" sx={{
+                            color: 'red', p: 2,
+                            opacity: isVisible ? 1 : 0,
+                            transition: 'opacity 0.5s ease-in-out',
+                        }}>
                         Sản phẩm khuyến mãi
                     </Typography>
-                    
+            
+
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '30px', justifyContent: 'center' }}>
                         {productSales.map((product: ProductUserResponse) => (
                             <Box key={product.product.id}

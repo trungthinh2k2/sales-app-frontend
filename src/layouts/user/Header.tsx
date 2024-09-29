@@ -105,7 +105,7 @@ const Header = () => {
                         </IconButtonGradient>
                     </Tooltip>
                     <Tooltip title="thông báo">
-                        <IconButtonGradient onClick={handleClickAvatar}>
+                        <IconButtonGradient>
                             <Badge badgeContent={4} color="primary">
                                 <Notifications fontSize="small" />
                             </Badge>
